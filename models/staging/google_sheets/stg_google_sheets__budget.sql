@@ -5,11 +5,12 @@ WITH src_budget AS (
 
 renamed_casted AS (
     SELECT
-          _row
+          _row as budget_id
         , product_id
         , quantity
         , month
-        , _fivetran_synced AS date_load
+        , _fivetran_deleted AS is_deleted
+        , convert_timezone('UTC',_fivetran_synced) as date_load_utc
     FROM src_budget
     )
 

@@ -9,7 +9,8 @@ renamed_casted AS (
         , price
         , name
         , inventory_number
-        , _fivetran_synced AS date_load
+        , _fivetran_deleted AS is_deleted
+        , convert_timezone('UTC',_fivetran_synced) as date_load_utc
     FROM src_budget
     )
 
