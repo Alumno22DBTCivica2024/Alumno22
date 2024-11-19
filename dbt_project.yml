@@ -44,3 +44,6 @@ models:
 seeds:
   +database: "ALUMNO22_DEV_BRONZE_DB"
   +schema: "SEEDS"
+
+vars:
+    "dbt_date:time_zone": "Etc/UCT"

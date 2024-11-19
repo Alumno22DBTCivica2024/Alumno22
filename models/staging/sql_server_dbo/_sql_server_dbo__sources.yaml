@@ -232,9 +232,9 @@ sources:
           - name: phone_number
             data_type: varchar
             description: "Número de teléfono del usuario para contacto."
-          - name: total_orders
-            data_type: number
-            description: "Cantidad total de pedidos realizados por el usuario."
+          # - name: total_orders
+          #   data_type: number
+          #   description: "Cantidad total de pedidos realizados por el usuario."
           - name: first_name
             data_type: varchar
             description: "Nombre del usuario."
