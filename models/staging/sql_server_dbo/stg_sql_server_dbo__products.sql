@@ -8,10 +8,10 @@ renamed_casted AS (
           product_id
         , price
         , name
-        , inventory_number
+        , inventory
         , _fivetran_deleted AS is_deleted
         , convert_timezone('UTC',_fivetran_synced) as date_load_utc
-    FROM src_budget
+    FROM src_products
     )
 
 SELECT * FROM renamed_casted

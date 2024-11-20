@@ -3,6 +3,6 @@ WITH base_orders AS (
     FROM {{ ref('base_sql_server_dbo__orders') }}
     )
 
-SELECT distinct status_id
-        ,status_desc
+SELECT distinct shipping_service_id
+        ,shipping_service
 FROM base_orders

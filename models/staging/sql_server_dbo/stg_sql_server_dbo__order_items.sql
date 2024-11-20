@@ -1,16 +1,16 @@
-WITH src_budget AS (
+WITH src_order_items AS (
     SELECT * 
-    FROM {{ source('google_sheets', 'budget') }}
+    FROM {{ source('sql_server_dbo', 'order_items') }}
     ),
 
 renamed_casted AS (
     SELECT
-          _row as budget_id
+        order_id
         , product_id
         , quantity
-        , month
+        , _fivetran_deleted AS is_deleted
         , convert_timezone('UTC',_fivetran_synced) as date_load_utc
-    FROM src_budget
+    FROM src_order_items
     )
 
 SELECT * FROM renamed_casted
