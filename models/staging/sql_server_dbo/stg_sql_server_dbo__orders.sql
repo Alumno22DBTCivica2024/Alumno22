@@ -10,9 +10,9 @@ SELECT   order_id
         , order_total
         , promo_id
         , shipping_service_id
+        , date(created_at_utc) as created_at
         , tracking_id
         , status_id
-        , date(created_at_utc) as created_at
         , date(estimated_delivery_at_utc) as estimated_delivery_at
         , date(delivered_at_utc) as delivered_at 
         , is_deleted
