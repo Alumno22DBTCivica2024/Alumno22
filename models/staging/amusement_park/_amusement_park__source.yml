@@ -1,0 +1,186 @@
+sources:
+  - name: amusement_park
+    description: "Fuente de datos que contiene información relacionada con el parque temático, incluyendo atracciones, presupuestos, transacciones, visitantes y visitas."
+    database: alumno22_dev_bronze_db
+    tables:
+      - name: attractions
+        description: "Tabla que contiene información sobre las atracciones disponibles en el parque temático."
+        columns:
+          - name: attraction_id
+            data_type: number
+            description: "Identificador único de la atracción."
+          - name: name
+            data_type: varchar
+            description: "Nombre de la atracción."
+          - name: category
+            data_type: varchar
+            description: "Categoría de la atracción (Ejemplo: Simulador, Juego, Show, Tienda, etc.)."
+          - name: max_capacity
+            data_type: float
+            description: "Capacidad máxima de visitantes que puede manejar la atracción por sesión."
+          - name: popularity_score
+            data_type: float
+            description: "Puntaje de popularidad de la atracción, en una escala de 0 a 10."
+          - name: average_duration_minutes
+            data_type: number
+            description: "Duración promedio de la atracción en minutos."
+          - name: maintenance_status
+            data_type: varchar
+            description: "Estado de mantenimiento de la atracción (Ejemplo: Operativo, En reparación, Cerrado temporalmente, etc.)."
+          - name: location_area
+            data_type: varchar
+            description: "Área o zona dentro del parque donde se encuentra la atracción (Ejemplo: Zona Aventura, Zona Familiar, Zona Comercial, etc.)."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."
+
+      - name: budget
+        description: "Tabla que contiene el presupuesto mensual para cada atracción, incluyendo los objetivos de ingresos y visitas."
+        columns:
+          - name: budget_id
+            data_type: varchar
+            description: "Identificador único del presupuesto."
+          - name: attraction_id
+            data_type: number
+            description: "Identificador único de la atracción asociada al presupuesto."
+          - name: month
+            data_type: varchar
+            description: "Mes al que corresponde el presupuesto (Ejemplo: '2024-01')."
+          - name: target_revenue
+            data_type: float
+            description: "Ingreso objetivo para la atracción en el mes especificado."
+          - name: target_visits
+            data_type: number
+            description: "Número objetivo de visitas para la atracción en el mes especificado."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."
+
+      - name: transactions
+        description: "Tabla que contiene las transacciones realizadas por los visitantes, asociadas a atracciones y productos."
+        columns:
+          - name: transaction_id
+            data_type: varchar
+            description: "Identificador único de la transacción."
+          - name: visit_id
+            data_type: varchar
+            description: "Identificador de la visita asociada a la transacción."
+          - name: attraction_id
+            data_type: number
+            description: "Identificador de la atracción en la que se realizó la transacción."
+          - name: price
+            data_type: float
+            description: "Precio de la transacción realizada (Ejemplo: entrada a la atracción, compras en tiendas, etc.)."
+          - name: transaction_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se realizó la transacción."
+          - name: item_type
+            data_type: varchar
+            description: "Tipo de ítem transaccionado (Ejemplo: Entrada, Producto, Souvenir, etc.)."
+          - name: payment_method
+            data_type: varchar
+            description: "Método de pago utilizado en la transacción (Ejemplo: Tarjeta de crédito, efectivo, móvil, etc.)."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."
+
+      - name: visitors
+        description: "Tabla que contiene información de los visitantes del parque temático."
+        columns:
+          - name: visitor_id
+            data_type: varchar
+            description: "Identificador único del visitante."
+          - name: username
+            data_type: varchar
+            description: "Nombre de usuario del visitante."
+          - name: first_name
+            data_type: varchar
+            description: "Primer nombre del visitante."
+          - name: last_name
+            data_type: varchar
+            description: "Apellido del visitante."
+          - name: signup_date
+            data_type: varchar
+            description: "Fecha en que el visitante se registró en el sistema."
+          - name: membership_type
+            data_type: varchar
+            description: "Tipo de membresía del visitante (Ejemplo: Gratuita, Premium, etc.)."
+          - name: benefits
+            data_type: float
+            description: "Beneficios asociados al tipo de membresía del visitante (Ejemplo: 20% descuento)."
+          - name: address_id
+            data_type: varchar
+            description: "Identificador único de la dirección asociada al visitante."
+          - name: state
+            data_type: varchar
+            description: "Estado de la dirección del visitante."
+          - name: zipcode
+            data_type: number
+            description: "Código postal de la dirección del visitante."
+          - name: address
+            data_type: varchar
+            description: "Dirección completa del visitante."
+          - name: country
+            data_type: varchar
+            description: "País de residencia del visitante."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."
+
+      - name: visits
+        description: "Tabla que contiene información sobre las visitas de los visitantes al parque."
+        columns:
+          - name: visit_id
+            data_type: varchar
+            description: "Identificador único de la visita."
+          - name: visitor_id
+            data_type: varchar
+            description: "Identificador del visitante que realizó la visita."
+          - name: visit_start_time
+            data_type: timestamp_tz
+            description: "Fecha y hora de inicio de la visita."
+          - name: visit_end_time
+            data_type: timestamp_tz
+            description: "Fecha y hora de finalización de la visita."
+          - name: duration_minutes
+            data_type: number
+            description: "Duración de la visita en minutos."
+          - name: device_used
+            data_type: varchar
+            description: "Dispositivo utilizado durante la visita (Ejemplo: móvil, tablet, etc.)."
+          - name: entry_method
+            data_type: varchar
+            description: "Método de entrada del visitante al parque (Ejemplo: Entrada normal, Pase rápido, etc.)."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."

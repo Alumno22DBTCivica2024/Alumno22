@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'Proyecto_final'
 version: '1.0.0'
 config-version: 2
 
@@ -41,10 +41,8 @@ models:
     staging:
       +materialized: view
       +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
-      google_sheets:
-        +schema: google_sheets
-      sql_server_dbo:
-        +schema: sql_server_dbo
+      amusement_park:
+        +schema: amusement_park
       
     marts:
       +materialized: table
@@ -52,10 +50,10 @@ models:
       core:
         +schema: core
       
-      
 seeds:
   +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
-  +schema: "SEEDS"       
+  +schema: "SEEDS"      
+
 snapshots:
   +transient: false
   +target_database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"

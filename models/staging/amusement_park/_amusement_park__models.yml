@@ -1,0 +1,255 @@
+version: 2
+
+models:
+  - name: stg_amusement_park__visitors
+    description: ""
+    columns:
+      - name: visitor_id
+        data_type: varchar
+        description: ""
+
+      - name: username
+        data_type: varchar
+        description: ""
+
+      - name: first_name
+        data_type: varchar
+        description: ""
+
+      - name: last_name
+        data_type: varchar
+        description: ""
+
+      - name: signup_date_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: membership_id
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+  - name: stg_amusement_park__attractions
+    description: ""
+    columns:
+      - name: attraction_id
+        data_type: number
+        description: ""
+
+      - name: name
+        data_type: varchar
+        description: ""
+
+      - name: category
+        data_type: varchar
+        description: ""
+
+      - name: max_capacity
+        data_type: float
+        description: ""
+
+      - name: popularity_score
+        data_type: float
+        description: ""
+
+      - name: average_duration_minutes
+        data_type: number
+        description: ""
+
+      - name: maintenance_status
+        data_type: varchar
+        description: ""
+
+      - name: location_area
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_load_id
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_id
+        data_type: varchar
+        description: ""
+
+      - name: load_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_amusement_park__budget
+    description: ""
+    columns:
+      - name: budget_id
+        data_type: varchar
+        description: ""
+
+      - name: attraction_id
+        data_type: number
+        description: ""
+
+      - name: month
+        data_type: varchar
+        description: ""
+
+      - name: rounded_target_revenue
+        data_type: float
+        description: ""
+
+      - name: target_visits
+        data_type: number
+        description: ""
+
+      - name: _dlt_load_id
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_id
+        data_type: varchar
+        description: ""
+
+      - name: load_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_amusement_park__visits
+    description: ""
+    columns:
+      - name: visit_id
+        data_type: varchar
+        description: ""
+
+      - name: visitor_id
+        data_type: varchar
+        description: ""
+
+      - name: visit_start_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: visit_end_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: visit_end_time
+        data_type: timestamp_tz
+        description: ""
+
+      - name: duration_minutes
+        data_type: number
+        description: ""
+
+      - name: device_used
+        data_type: varchar
+        description: ""
+
+      - name: entry_method
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_load_id
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_id
+        data_type: varchar
+        description: ""
+
+      - name: load_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_amusement_park__transactions
+    description: ""
+    columns:
+      - name: transaction_id
+        data_type: varchar
+        description: ""
+
+      - name: visit_id
+        data_type: varchar
+        description: ""
+
+      - name: attraction_id
+        data_type: number
+        description: ""
+
+      - name: price
+        data_type: float
+        description: ""
+
+      - name: transaction_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: item_type
+        data_type: varchar
+        description: ""
+
+      - name: payment_method
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_load_id
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_id
+        data_type: varchar
+        description: ""
+
+      - name: load_time_utc
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_amusement_park__membership
+    description: ""
+    columns:
+      - name: membership_id
+        data_type: varchar
+        description: ""
+
+      - name: membership_type
+        data_type: varchar
+        description: ""
+
+      - name: benefits
+        data_type: float
+        description: ""
+
+  - name: stg_amusement_park__addresses
+    description: ""
+    columns:
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: zipcode
+        data_type: number
+        description: ""
+
+      - name: address
+        data_type: varchar
+        description: ""
+
+      - name: country
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_load_id
+        data_type: varchar
+        description: ""
+
+      - name: _dlt_id
+        data_type: varchar
+        description: ""
+
+      - name: load_time_utc
+        data_type: timestamp_tz
+        description: ""
