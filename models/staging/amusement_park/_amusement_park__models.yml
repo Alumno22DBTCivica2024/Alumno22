@@ -2,254 +2,357 @@ version: 2
 
 models:
   - name: stg_amusement_park__visitors
-    description: ""
+    description: "Almacena la información básica de los visitantes registrados en el parque de atracciones."
     columns:
       - name: visitor_id
         data_type: varchar
-        description: ""
+        description: "Identificador único del visitante."
+        tests: 
+          - unique
+          - not_null
 
       - name: username
         data_type: varchar
-        description: ""
+        description: "Nombre de usuario del visitante."
+        tests:
+          - not_null
 
       - name: first_name
         data_type: varchar
-        description: ""
-
+        description: "Primer nombre del visitante."
+        
       - name: last_name
         data_type: varchar
-        description: ""
+        description: "Apellido del visitante."
 
       - name: signup_date_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora en que el visitante se registró."
+        tests: 
+          - not_null
+          # - not_future_date
 
       - name: membership_id
         data_type: varchar
-        description: ""
+        description: "Identificador del tipo de membresía asociada al visitante."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('membership')
+              field: membership_id
 
       - name: address_id
         data_type: varchar
-        description: ""
+        description: "Relación con la dirección registrada del visitante."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('address')
+              field: address_id
 
   - name: stg_amusement_park__attractions
-    description: ""
+    description: "Contiene información sobre las atracciones disponibles en el parque."
     columns:
       - name: attraction_id
         data_type: number
-        description: ""
-
+        description: "Identificador único de la atracción."
+        tests: 
+          - not_null
+          - unique
+          
       - name: name
         data_type: varchar
-        description: ""
+        description: "Nombre de la atracción."
+        tests: 
+          - not_null
 
       - name: category
         data_type: varchar
-        description: ""
+        description: "Categoría a la que pertenece la atracción (e.g., Simulador, Show)."
+        tests: 
+          - not_null
+          - accepted_values:
+              values: ['Juego', 'Show', 'Tienda', 'Restaurante', 'Simulador']
 
       - name: max_capacity
         data_type: float
-        description: ""
+        description: "Capacidad máxima de personas que la atracción puede soportar simultáneamente."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
 
       - name: popularity_score
         data_type: float
-        description: ""
+        description: "Puntuación de popularidad de la atracción (0 a 10)."
+        tests: 
+          - not_null
 
       - name: average_duration_minutes
         data_type: number
-        description: ""
+        description: "Duración promedio de la experiencia en minutos."
+        tests: 
+          - not_null
 
       - name: maintenance_status
         data_type: varchar
-        description: ""
+        description: "Estado de mantenimiento de la atracción (e.g., Operativo, En reparación)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Operativo', 'En reparación', 'Cerrado temporalmente',  'Cerrado']
 
       - name: location_area
         data_type: varchar
-        description: ""
+        description: "Área del parque donde se encuentra la atracción."
 
       - name: _dlt_load_id
         data_type: varchar
-        description: ""
+        description: "Identificador de la carga de datos."
 
       - name: _dlt_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transformación."
 
       - name: load_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la carga de datos."
 
   - name: stg_amusement_park__budget
-    description: ""
+    description: "Almacena los presupuestos mensuales para cada atracción, incluyendo objetivo de visitas y objetivos de ingresos."
     columns:
       - name: budget_id
         data_type: varchar
-        description: ""
+        description: "Identificador único del presupuesto."
+        tests:
+          - not_null
+          - unique
 
       - name: attraction_id
         data_type: number
-        description: ""
+        description: "Relación con la atracción asociada al presupuesto."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('attractions')
+              field: attraction_id
 
       - name: month
         data_type: varchar
-        description: ""
+        description: "Mes al que corresponde el presupuesto."
+        tests:
+          - not_null
+          # - test_date_format
 
       - name: rounded_target_revenue
         data_type: float
-        description: ""
+        description: "Objetivo de ingresos para la atracción en el mes."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
 
       - name: target_visits
         data_type: number
-        description: ""
+        description: "Número objetivo de visitas para la atracción en el mes."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
 
       - name: _dlt_load_id
         data_type: varchar
-        description: ""
+        description: "Identificador de la carga de datos."
 
       - name: _dlt_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transformación."
 
       - name: load_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la carga de datos."
 
   - name: stg_amusement_park__visits
-    description: ""
+    description: "Registra los detalles de cada visita al parque."
     columns:
       - name: visit_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la visita."
+        tests:
+          - not_null
+          - unique
 
       - name: visitor_id
         data_type: varchar
-        description: ""
+        description: "Relación con el visitante que realiza la visita."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('visitors')
+              field: visitor_id
 
       - name: visit_start_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de inicio de la visita."
+        tests:
+          - not_null
 
       - name: visit_end_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de finalización de la visita."
+        tests:
+          - not_null
+          # - end_after_start:
+          #     start_column: visit_start_time_utc
+          #     end_column: visit_end_time_utc
+        
 
-      - name: visit_end_time
-        data_type: timestamp_tz
-        description: ""
-
-      - name: duration_minutes
-        data_type: number
-        description: ""
+      # - name: duration_minutes
+      #   data_type: number
+      #   description: "Duración total de la visita en minutos."
 
       - name: device_used
         data_type: varchar
-        description: ""
+        description: "Dispositivo utilizado para acceder al parque (e.g., móvil, tarjeta)."
 
       - name: entry_method
         data_type: varchar
-        description: ""
-
+        description: "Método de acceso al parque (e.g., Online reservation, Ticket counter)."
+# Accepted?
       - name: _dlt_load_id
         data_type: varchar
-        description: ""
+        description: "Identificador de la carga de datos."
 
       - name: _dlt_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transformación."
 
       - name: load_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la carga de datos."
 
   - name: stg_amusement_park__transactions
-    description: ""
+    description: "Registra las transacciones realizadas durante las visitas al parque."
     columns:
       - name: transaction_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transacción."
+        tests:
+          - not_null
+          - unique
 
       - name: visit_id
         data_type: varchar
-        description: ""
+        description: "Relación con la visita en la que ocurrió la transacción."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('visits')
+              field: visit_id
 
       - name: attraction_id
         data_type: number
-        description: ""
+        description: "Relación con la atracción asociada a la transacción."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('attraction')
+              field: attraction_id
 
       - name: price
         data_type: float
-        description: ""
+        description: "Valor total de la transacción."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
 
       - name: transaction_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la transacción."
+        tests:
+          - not_null
+          # - not_future_data
 
       - name: item_type
         data_type: varchar
-        description: ""
+        description: "Tipo de artículo o servicio adquirido."
 
       - name: payment_method
         data_type: varchar
-        description: ""
+        description: "Método de pago utilizado en la transacción."
 
       - name: _dlt_load_id
         data_type: varchar
-        description: ""
+        description: "Identificador de la carga de datos."
 
       - name: _dlt_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transformación."
 
       - name: load_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la carga de datos."
 
   - name: stg_amusement_park__membership
-    description: ""
+    description: "Almacena información sobre los tipos de membresías disponibles y sus beneficios."
     columns:
       - name: membership_id
         data_type: varchar
-        description: ""
+        description: "Identificador único del tipo de membresía."
+        tests:
+          - not_null
+          - unique
 
       - name: membership_type
         data_type: varchar
-        description: ""
-
+        description: "Nombre del tipo de membresía (e.g., Gratuita, Premium)."
+        tests:
+          - not_null
+          - unique
+# Añado mas?
       - name: benefits
         data_type: float
-        description: ""
+        description: "Porcentaje de beneficios asociados a la membresía."
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
 
   - name: stg_amusement_park__addresses
-    description: ""
+    description: "Contiene información sobre las direcciones asociadas a los visitantes."
     columns:
       - name: address_id
         data_type: varchar
-        description: ""
-
+        description: "Identificador único de la dirección."
+        tests:
+          - not_null
+          - unique
+          
       - name: state
         data_type: varchar
-        description: ""
+        description: "Estado asociado a la dirección."
 
       - name: zipcode
         data_type: number
-        description: ""
+        description: "Código postal asociado a la dirección."
 
       - name: address
         data_type: varchar
-        description: ""
+        description: "Dirección completa."
 
       - name: country
         data_type: varchar
-        description: ""
+        description: "País asociado a la dirección."
 
       - name: _dlt_load_id
         data_type: varchar
-        description: ""
+        description: "Identificador de la carga de datos."
 
       - name: _dlt_id
         data_type: varchar
-        description: ""
+        description: "Identificador único de la transformación."
 
       - name: load_time_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Fecha y hora de la carga de datos."

@@ -8,7 +8,7 @@ renamed as (
         attraction_id,
         name,
         category,
-        max_capacity,
+        COALESCE(max_capacity, '0') AS max_capacity,
         popularity_score,
         average_duration_minutes,
         maintenance_status,

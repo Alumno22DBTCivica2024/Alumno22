@@ -4,7 +4,7 @@ with base_visitors as (
 )
 
 select
-    membership_id,
+    distinct membership_id,
     membership_type,
     benefits
 from base_visitors

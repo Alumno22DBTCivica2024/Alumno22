@@ -13,7 +13,6 @@ renamed as (
         visitor_id,
         convert_timezone('UTC',visit_start_time) as visit_start_time_utc,
         convert_timezone('UTC',visit_end_time) as visit_end_time_utc,
-        visit_end_time,
         duration_minutes,
         device_used,
         entry_method,

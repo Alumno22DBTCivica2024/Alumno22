@@ -1,17 +1,1 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
-WITH stg_date AS (
-    SELECT * 
-    FROM {{ ref("stg_date") }}
-    ),
-
-renamed_casted AS (
-    SELECT *
-    FROM stg_date
-    )
-
-SELECT * FROM renamed_casted
+{{ dbt_date.get_date_dimension("2020-01-01", "2025-12-31") }}
