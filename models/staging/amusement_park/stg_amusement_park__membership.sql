@@ -6,5 +6,5 @@ with base_visitors as (
 select
     distinct membership_id,
     membership_type,
-    benefits
+    COALESCE(benefits, '0') AS benefits
 from base_visitors

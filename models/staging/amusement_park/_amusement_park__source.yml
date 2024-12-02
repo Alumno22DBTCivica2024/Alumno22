@@ -184,3 +184,40 @@ sources:
           - name: load_time
             data_type: timestamp_tz
             description: "Fecha y hora en que se cargó la fila en el sistema."
+
+      - name: bookings
+        description: "Registro de las reservas realizadas en el parque de atracciones."
+        columns:
+          - name: reservation_id
+            data_type: varchar
+            description: "Identificador único de la reserva."
+          - name: visitor_id
+            data_type: varchar
+            description: "Identificador del visitante que realiza la reserva."
+          - name: attraction_id
+            data_type: integer
+            description: "Identificador de la atracción reservada."
+          - name: reservation_date
+            data_type: timestamp
+            description: "Fecha y hora en la que se hizo la reserva."
+          - name: visit_date
+            data_type: date
+            description: "Fecha programada para la visita a la atracción."
+          - name: status
+            data_type: varchar
+            description: "Estado de la reserva (pendiente, confirmada, cancelada)."
+          - name: num_tickets
+            data_type: integer
+            description: "Número de tickets reservados."
+          - name: total_price
+            data_type: decimal(10, 2)
+            description: "Precio total de la reserva."
+          - name: _dlt_load_id
+            data_type: varchar
+            description: "Identificador único para la carga de datos en el proceso de DLT."
+          - name: _dlt_id
+            data_type: varchar
+            description: "Identificador único de la fila en el proceso de DLT."
+          - name: load_time
+            data_type: timestamp_tz
+            description: "Fecha y hora en que se cargó la fila en el sistema."

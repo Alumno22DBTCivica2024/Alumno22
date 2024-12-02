@@ -310,7 +310,7 @@ models:
         tests:
           - not_null
           - unique
-# Añado mas?
+          
       - name: benefits
         data_type: float
         description: "Porcentaje de beneficios asociados a la membresía."
@@ -356,3 +356,63 @@ models:
       - name: load_time_utc
         data_type: timestamp_tz
         description: "Fecha y hora de la carga de datos."
+  
+  - name: stg_amusement_park__bookings
+    description: "Tabla de hechos que contiene información de las reservas realizadas en el parque de atracciones."
+    columns:
+      - name: reservation_id
+        description: "Identificador único de la reserva."
+        tests:
+          - not_null
+          - unique
+
+      - name: visitor_id
+        description: "Identificador del visitante que realiza la reserva."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('visitors')
+              field: visitor_id
+
+      - name: attraction_id
+        description: "Identificador de la atracción reservada."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('attractions')
+              field: attraction_id
+
+      - name: reservation_date_utc
+        description: "Fecha y hora en la que se hizo la reserva."
+        tests:
+          - not_null
+# - not_past_date
+
+      - name: visit_date
+        description: "Fecha programada para la visita a la atracción."
+        tests:
+          - not_null
+# - not_future_date
+
+      - name: status
+        description: "Estado de la reserva (pendiente, confirmada, cancelada)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['pending', 'confirmed', 'cancelled']
+
+      - name: num_tickets
+        description: "Número de tickets reservados."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 100
+
+      - name: total_price
+        description: "Precio total de la reserva."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
