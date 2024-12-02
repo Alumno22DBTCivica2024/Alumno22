@@ -1,9 +1,9 @@
-{% test end_after_start(model, start_column, end_column) %}
+{% test end_after_start(model,column_name, start_column) %}
     WITH validation_errors AS (
         SELECT
             *
         FROM {{ model }}
-        WHERE {{ end_column }} <= {{ start_column }}
+        WHERE {{ column_name }} <= {{ start_column }}
     )
     SELECT *
     FROM validation_errors

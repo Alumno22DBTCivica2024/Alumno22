@@ -30,7 +30,6 @@ models:
         description: "Fecha y hora en que el visitante se registró."
         tests: 
           - not_null
-          # - not_future_date
 
       - name: membership_id
         data_type: varchar
@@ -142,7 +141,6 @@ models:
         description: "Mes al que corresponde el presupuesto."
         tests:
           - not_null
-          # - test_date_format
 
       - name: rounded_target_revenue
         data_type: float
@@ -202,14 +200,12 @@ models:
         description: "Fecha y hora de finalización de la visita."
         tests:
           - not_null
-          # - end_after_start:
-          #     start_column: visit_start_time_utc
-          #     end_column: visit_end_time_utc
-        
+          - end_after_start:
+              start_column: visit_start_time_utc    
 
-      # - name: duration_minutes
-      #   data_type: number
-      #   description: "Duración total de la visita en minutos."
+      - name: duration_minutes
+        data_type: number
+        description: "Duración total de la visita en minutos."
 
       - name: device_used
         data_type: varchar
@@ -218,7 +214,8 @@ models:
       - name: entry_method
         data_type: varchar
         description: "Método de acceso al parque (e.g., Online reservation, Ticket counter)."
-# Accepted?
+
+      
       - name: _dlt_load_id
         data_type: varchar
         description: "Identificador de la carga de datos."
@@ -272,7 +269,6 @@ models:
         description: "Fecha y hora de la transacción."
         tests:
           - not_null
-          # - not_future_data
 
       - name: item_type
         data_type: varchar
@@ -386,13 +382,11 @@ models:
         description: "Fecha y hora en la que se hizo la reserva."
         tests:
           - not_null
-# - not_past_date
 
       - name: visit_date
         description: "Fecha programada para la visita a la atracción."
         tests:
           - not_null
-# - not_future_date
 
       - name: status
         description: "Estado de la reserva (pendiente, confirmada, cancelada)."
