@@ -48,7 +48,7 @@ attraction_summary AS (
 )
 
 SELECT 
-    a.attraction_id,
+    distinct a.attraction_id,
     at.name AS attraction_name,
     a.total_visits,
     a.total_revenue,
