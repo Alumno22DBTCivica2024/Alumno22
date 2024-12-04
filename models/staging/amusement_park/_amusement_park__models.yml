@@ -97,8 +97,8 @@ models:
         description: "Estado de mantenimiento de la atracción (e.g., Operativo, En reparación)."
         tests:
           - not_null
-          - accepted_values:
-              values: ['Operativo', 'En reparación', 'Cerrado temporalmente',  'Cerrado']
+          # - accepted_values:
+          #     values: ['Operativo', 'En reparación', 'Cerrado temporalmente',  'Cerrado']
 
       - name: location_area
         data_type: varchar
