@@ -8,7 +8,7 @@ with stg_bookings as (
         status,
         num_tickets,
         total_price,
-        load_time_utc
+        convert_timezone('UTC',load_time) as load_time
     FROM {{ ref('stg_amusement_park__bookings') }}
 ),
 
@@ -66,7 +66,7 @@ enriched as (
             when datediff(day, b.reservation_date_utc, b.visit_date) > 30 then 'early'
             else 'late'
         end as reservation_timing,
-        b.load_time_utc
+        b.load_time
     from stg_bookings b
     left join visitors v on b.visitor_id = v.visitor_id
     left join attractions a on b.attraction_id = a.attraction_id

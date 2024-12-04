@@ -1,3 +1,10 @@
+{{ config(
+    materialized='incremental',
+    unique_key= 'transaction_id'
+    ) 
+    }}
+
+
 with source as (
 
     select * from {{ source('amusement_park', 'transactions') }}
@@ -23,3 +30,9 @@ renamed as (
 )
 
 select * from renamed
+
+{% if is_incremental() %}
+
+  where load_time_utc > (select max(load_time_utc) from {{ this }})
+
+{% endif %}

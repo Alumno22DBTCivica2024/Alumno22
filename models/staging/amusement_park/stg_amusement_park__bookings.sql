@@ -1,3 +1,9 @@
+{{ config(
+    materialized='incremental',
+    unique_key='reservation_id',
+    incremental_strategy='merge'
+) }}
+
 with source as (
     select * from {{ source('amusement_park', 'bookings') }}
 ),
@@ -13,12 +19,16 @@ renamed as (
         status,
         num_tickets,
         total_price,
-        load_time,
         _dlt_load_id,
-        convert_timezone('UTC',load_time) as load_time_utc
+        _dlt_id,
+        load_time
 
     from source
 
 )
 
 select * from renamed
+
+{% if is_incremental() %}
+WHERE load_time > (SELECT MAX(load_time) FROM {{ this }})
+{% endif %}

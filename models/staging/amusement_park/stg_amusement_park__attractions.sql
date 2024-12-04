@@ -8,7 +8,10 @@ renamed as (
         attraction_id,
         name,
         category,
-        COALESCE(max_capacity, '0') AS max_capacity,
+        CASE 
+            WHEN max_capacity IS NULL OR max_capacity = 'NaN' THEN 50
+            ELSE max_capacity
+        END AS max_capacity,
         popularity_score,
         average_duration_minutes,
         maintenance_status,

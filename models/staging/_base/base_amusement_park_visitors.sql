@@ -1,3 +1,11 @@
+{{ config(
+    materialized='incremental',
+    unique_key= 'visitor_id'
+    ) 
+    }}
+
+
+
 with source as (
     select * from {{ source('amusement_park', 'visitors') }}
 ),
@@ -10,8 +18,14 @@ renamed as (
         first_name,
         last_name,
         convert_timezone('UTC',signup_date) as signup_date_utc,
-        COALESCE(membership_type, 'undefined') AS membership_type,
-        COALESCE(benefits, 0) AS benefits, --Snowflake interpreta los NaN como null
+        CASE 
+            WHEN membership_type IS NULL OR membership_type = 'NaN' THEN 'undefined'
+            ELSE membership_type
+        END AS membership_type,
+        CASE 
+            WHEN benefits IS NULL OR benefits = 'NaN' THEN 0
+            ELSE benefits
+        END AS benefits,
         address_id,
         state,
         zipcode,
@@ -43,3 +57,9 @@ select
     _dlt_id,
     load_time_utc
 from renamed
+
+{% if is_incremental() %}
+
+  where load_time_utc > (select max(load_time_utc) from {{ this }})
+
+{% endif %}

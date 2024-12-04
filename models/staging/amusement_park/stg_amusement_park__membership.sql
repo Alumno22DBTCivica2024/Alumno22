@@ -6,5 +6,8 @@ with base_visitors as (
 select
     distinct membership_id,
     membership_type,
-    COALESCE(benefits, '0') AS benefits
+    CASE 
+        WHEN benefits IS NULL OR benefits = 'NaN' THEN 0
+        ELSE benefits
+    END AS benefits
 from base_visitors
